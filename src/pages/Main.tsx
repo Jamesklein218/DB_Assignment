@@ -26,7 +26,7 @@ export default function Main() {
             {matches.map((match, index) => (
               <tr
                 key={match.Match_id}
-                onClick={() => navigate(`/match/${"123"}`)}
+                onClick={() => navigate(`/match/${match.Match_id}`)}
                 className="hover:bg-slate-800 hover:text-white hover:cursor-pointer hover:pr-3 border-gray-400 transform duration-300"
               >
                 <th>{index + 1}</th>
