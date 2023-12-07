@@ -9,13 +9,17 @@ import Error from "./pages/Error";
 
 import "./index.css";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import Awards from "./pages/Awards";
+import Protected from "./layout/Protected";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: (
+      <Protected>
+        <Main />
+      </Protected>
+    ),
     errorElement: <Error />,
   },
   {
@@ -25,27 +29,38 @@ const router = createBrowserRouter([
   },
   {
     path: "/awards",
-    element: <Awards />,
-    errorElement: <Error />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
+    element: (
+      <Protected>
+        <Awards />
+      </Protected>
+    ),
     errorElement: <Error />,
   },
   {
     path: "/club/:clubId",
-    element: <Club />,
+    element: (
+      <Protected>
+        <Club />
+      </Protected>
+    ),
     errorElement: <Error />,
   },
   {
     path: "/match/:matchId",
-    element: <Match />,
+    element: (
+      <Protected>
+        <Match />
+      </Protected>
+    ),
     errorElement: <Error />,
   },
   {
     path: "/competitor/:competitorId",
-    element: <Competitor />,
+    element: (
+      <Protected>
+        <Competitor />
+      </Protected>
+    ),
     errorElement: <Error />,
   },
 ]);

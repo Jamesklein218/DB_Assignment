@@ -1,13 +1,20 @@
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../assets/images/logo.svg?react";
+import { useLocalStorage } from "usehooks-ts";
 
 export default function Navbar() {
+  const [token, setToken] = useLocalStorage('token', null);
+  const isAuthenticated = token !== null;
   return (
     <div className="drawer-content flex flex-col">
       <div className="navbar bg-white">
         <div className="navbar-start">
           <div className="dropdown">
-            <label htmlFor="my-drawer" aria-label="open sidebar" className="btn btn-ghost lg:hidden">
+            <label
+              htmlFor="my-drawer"
+              aria-label="open sidebar"
+              className="btn btn-ghost lg:hidden"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -40,17 +47,27 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
-        <div className="navbar-end">
-          <Link
-            to="/login"
-            className="btn hover:bg-slate-800 hover:text-white mr-4"
-          >
-            Log in
-          </Link>
-          <Link to="/signup" className="btn btn-outline">
-            Sign up
-          </Link>
-        </div>
+        {!isAuthenticated ? (
+          <div className="navbar-end">
+            <Link
+              to="/login"
+              className="btn hover:bg-slate-800 hover:text-white mr-4"
+            >
+              Log in
+            </Link>
+          </div>
+        ) : (
+          <div className="navbar-end">
+            <button
+              onClick={() => {
+                setToken(null);
+              }}
+              className="btn hover:bg-slate-800 hover:text-white mr-4"
+            >
+              Log out
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
