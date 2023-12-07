@@ -1,20 +1,18 @@
-import { useNavigate } from "react-router-dom";
 import ArrowRight from "../assets/images/arrow-right.svg?react";
 import Page from "../layout/Page";
 import { useEffect, useState } from "react";
 import { axios } from "../custom-axios";
 import { API_URL } from "../config";
-import { Match } from "../types";
+import { Staff } from "../types";
 
-export default function Main() {
-  const navigate = useNavigate();
-
-  const [matches, setMatches] = useState<Match[]>([]);
+export default function Staff() {
+  const [staff, setStaff] = useState<Staff[] | null>(null); // TODO: replace any with Staff[
   const [season, setSeason] = useState<number>(2019);
 
   useEffect(() => {
-    axios.get(`${API_URL}matches/${season}`).then((res) => {
-      setMatches(res.data);
+    axios.get(`${API_URL}staff`).then((res) => {
+      console.log(res.data)
+      setStaff(res.data);
     });
   }, [season]);
 
@@ -37,22 +35,24 @@ export default function Main() {
         <table className="table mt-20">
           <tbody>
             {/* row 1 */}
-            {matches.map((match, index) => (
-              <tr
-                key={match.Match_id}
-                onClick={() => navigate(`/match/${season}/${match.Match_id}`)}
-                className="hover:bg-slate-800 hover:text-white hover:cursor-pointer hover:pr-3 border-gray-400 transform duration-300"
-              >
-                <th>{index + 1}</th>
-                <td>
-                  {match.Home_club_name} vs {match.Away_club_name}
-                </td>
-                <td>{match.Stadium}</td>
-                <td className="">
-                  <ArrowRight className="w-5 h-5" />
-                </td>
-              </tr>
-            ))}
+            {
+              staff?.map((staff, index) => (
+                <tr
+                  key={staff.Staff_id}
+                  className="hover:bg-slate-800 hover:text-white hover:cursor-pointer hover:pr-3 border-gray-400 transform duration-300"
+                >
+                  <th>{index + 1}</th>
+                  <td>
+                    {staff.Last_name} {staff.First_name}
+                  </td>
+                  <td>{staff.Staff_type}</td>
+                  <td className="">
+                    <ArrowRight className="w-5 h-5" />
+                  </td>
+                </tr>
+              ))
+            }
+              
           </tbody>
         </table>
       </div>

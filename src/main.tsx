@@ -11,6 +11,7 @@ import "./index.css";
 import Login from "./pages/Login";
 import Awards from "./pages/Awards";
 import Protected from "./layout/Protected";
+import Staff from "./pages/Staff";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/club/:clubId",
+    path: "/club/:season/:clubId",
     element: (
       <Protected>
         <Club />
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/match/:matchId",
+    path: "/match/:seasonId/:matchId",
     element: (
       <Protected>
         <Match />
@@ -55,10 +56,19 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/competitor/:competitorId",
+    path: "/competitor/:season/:competitorId",
     element: (
       <Protected>
         <Competitor />
+      </Protected>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: "/staff/",
+    element: (
+      <Protected>
+        <Staff />
       </Protected>
     ),
     errorElement: <Error />,

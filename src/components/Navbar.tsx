@@ -45,6 +45,9 @@ export default function Navbar() {
             <li>
               <NavLink to="/awards">Awards</NavLink>
             </li>
+            <li>
+              <NavLink to="/staff">Staff</NavLink>
+            </li>
           </ul>
         </div>
         {!isAuthenticated ? (

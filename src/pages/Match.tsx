@@ -1,7 +1,7 @@
 import Page from "../layout/Page";
 
-import clublogo1 from "../assets/images/clublogo1.png";
-import clublogo2 from "../assets/images/clublogo2.png";
+import clublogo1 from "../assets/images/clublogo.png";
+import clublogo2 from "../assets/images/clublogo.png";
 import { useEffect, useState } from "react";
 import {
   Card,
@@ -11,7 +11,7 @@ import {
   Match as TMatch,
 } from "../types";
 import { axios } from "../custom-axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { API_URL } from "../config";
 
 function formatMatchTime(time: number, isFirstHalf: boolean): string {
@@ -34,10 +34,10 @@ export default function Match() {
     | null
   >(null);
 
-  const { matchId } = useParams();
+  const { seasonId, matchId } = useParams();
 
   useEffect(() => {
-    axios.get(`${API_URL}matches/2019/${matchId}`).then((res) => {
+    axios.get(`${API_URL}matches/${seasonId}/${matchId}`).then((res) => {
       console.log(res.data);
       setMatch(res.data);
     });
@@ -49,17 +49,17 @@ export default function Match() {
         <div className="card container h-72 bg-white flex-col">
           <div className="flex-row justify-center items-center">
             <div className="card-body flex-row flex-1 px-20">
-              <div className="flex flex-row items-center grow-[1]">
+              <Link to={`/club/${seasonId}/${match?.Home_club_id}`} className="flex flex-row items-center grow-[1]">
                 <img
                   src={clublogo1}
                   alt="logo1"
-                  className="w-20 left-10 aspect-square absolute"
+                  className="w-20 scale-125 left-10 aspect-square absolute"
                 />
                 <div className="flex flex-1 h-16 bg-blue-500 flex-col justify-center items-center" />
                 <div className="absolute left-[132px] text-xl font-bold text-white">
                   {match?.Home_club_name}
                 </div>
-              </div>
+              </Link>
               <div className="p-6 border bg-slate-900 font-extrabold text-white rounded-lg flex flex-col w-[140px] justify-between">
                 <span className="w-full flex justify-between">
                   <span className="text-4xl">
@@ -77,17 +77,17 @@ export default function Match() {
                   </span>
                 </span>
               </div>
-              <div className="flex flex-row-reverse items-center grow-[1]">
+              <Link to={`/club/${seasonId}/${match?.Away_club_id}`} className="flex flex-row-reverse items-center grow-[1]">
                 <img
                   src={clublogo2}
                   alt="logo1"
-                  className="w-20 right-10 aspect-square absolute"
+                  className="w-20 scale-125 right-10 aspect-square absolute"
                 />
                 <div className="flex flex-1 h-16 bg-red-600 flex-col justify-center items-center" />
                 <div className="absolute right-[132px] text-xl font-bold text-white">
                   {match?.Away_club_name}
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
           <div className="mx-auto w-full max-w-2xl bg-red p-4">
@@ -146,9 +146,7 @@ export default function Match() {
             </tr>
             <tr className="hover:bg-slate-800 hover:text-white hover:pr-3 transform duration-300">
               <td>Substituion</td>
-              <td>
-                {match?.activities.subs.length}
-              </td>
+              <td>{match?.activities.subs.length}</td>
             </tr>
           </tbody>
         </table>
