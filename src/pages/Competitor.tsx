@@ -29,7 +29,7 @@ export default function Competitor() {
         <div className="absolute z-10 left-0 bottom-0 flex gap-10 px-6">
           <div className="text-black flex flex-col-reverse py-5">
             <p className="md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
-              {player?.Position}
+              {player?.Position === 'goal_keeper' ? 'GOAL KEEPER' : player?.Position.toUpperCase()}
             </p>
             <p className="md:text-3xl lg:text-4xl xl:text-6xl 2xl:text-8xl font-extrabold">
               {player?.First_name + " " + player?.Last_name}
@@ -55,7 +55,7 @@ export default function Competitor() {
             </tr>
             <tr className="hover:bg-slate-800 hover:text-white hover:pr-3 transform duration-300">
               <td>Position</td>
-              <td>{player?.Position}</td>
+              <td>{player?.Position === 'goal_keeper' ? 'GOAL KEEPER' : player?.Position.toUpperCase()}</td>
             </tr>
             <tr className="hover:bg-slate-800 hover:text-white hover:pr-3 transform duration-300">
               <td>Date of birth</td>
@@ -93,6 +93,29 @@ export default function Competitor() {
                 </Link>
               </td>
             </tr>
+          </tbody>
+        </table>
+
+        <h1 className="text-3xl font-bold mt-20">Contracts</h1>
+        <table className="table mt-20">
+          <tbody>
+            {player?.contracts.map((contract, index) => (
+              <tr
+                key={contract.Start_date + contract.Club_id}
+                className="hover:bg-slate-800 hover:text-white hover:cursor-pointer hover:pr-3 border-gray-400 transform duration-300"
+              >
+                <th>{index + 1}</th>
+                <td>
+                  <Link
+                    to={`/club/${season}/${contract.Club_id}`}
+                  >
+                    {contract.Club}
+                  </Link>
+                </td>
+                <td>{new Date(contract.Start_date).toLocaleDateString('vn-Vn')}</td>
+                <td>{contract.End_date ? new Date(contract.End_date).toLocaleDateString('vn-Vn'): 'Current'}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
