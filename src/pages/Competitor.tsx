@@ -29,7 +29,7 @@ export default function Competitor() {
         <div className="absolute z-10 left-0 bottom-0 flex gap-10 px-6">
           <div className="text-black flex flex-col-reverse py-5">
             <p className="md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
-              {player?.Position === 'goal_keeper' ? 'GOAL KEEPER' : player?.Position.toUpperCase()}
+              {player?.Position === 'goal_keeper' ? 'GOAL KEEPER' : player?.Position}
             </p>
             <p className="md:text-3xl lg:text-4xl xl:text-6xl 2xl:text-8xl font-extrabold">
               {player?.First_name + " " + player?.Last_name}
@@ -55,7 +55,7 @@ export default function Competitor() {
             </tr>
             <tr className="hover:bg-slate-800 hover:text-white hover:pr-3 transform duration-300">
               <td>Position</td>
-              <td>{player?.Position === 'goal_keeper' ? 'GOAL KEEPER' : player?.Position.toUpperCase()}</td>
+              <td>{player?.Position === 'goal_keeper' ? 'GOAL KEEPER' : player?.Position}</td>
             </tr>
             <tr className="hover:bg-slate-800 hover:text-white hover:pr-3 transform duration-300">
               <td>Date of birth</td>
