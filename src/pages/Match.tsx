@@ -15,8 +15,8 @@ import { Link, useParams } from "react-router-dom";
 import { API_URL } from "../config";
 
 function formatMatchTime(time: number, isFirstHalf: boolean): string {
-  const totalTime = isFirstHalf ? 45 : 90;
-  const additionalTime = time > 45 ? time - 45 : 0;
+  const totalTime = isFirstHalf ? Math.min(time, 45) : Math.min(45 + time, 90);
+  const additionalTime = time - 45 > 0 ? time - 45 : 0;
 
   return `${totalTime} ${additionalTime ? `+${additionalTime}` : ""}`;
 }

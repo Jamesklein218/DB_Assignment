@@ -1,4 +1,3 @@
-import ArrowRight from "../assets/images/arrow-right.svg?react";
 import Page from "../layout/Page";
 import { useEffect, useState } from "react";
 import { axios } from "../custom-axios";
